@@ -1,0 +1,272 @@
+// Sprites 8-bit desenhados como mapas de caracteres: cada letra é uma cor da paleta e '.' é transparente.
+
+/**
+ * @typedef {object} SpriteDefinition
+ * @property {string[]} rows
+ * @property {string[]} [rows2] Segundo quadro da animação (mesma paleta).
+ * @property {Record<string, string>} pal
+ * @property {Record<string, string>} [pal2] Segundo quadro com a mesma forma e outra paleta (pisca).
+ */
+
+const GHOST_TOP = [
+  '.....XXXX.....',
+  '...XXXXXXXX...',
+  '..XXXXXXXXXX..',
+  '.XXWWXXXXWWXX.',
+  '.XWWWWXXWWWWX.',
+  '.XWWBBXXWWBBX.',
+  'XXWWBBXXWWBBXX',
+  'XXXWWXXXXWWXXX',
+  'XXXXXXXXXXXXXX',
+  'XXXXXXXXXXXXXX',
+  'XXXXXXXXXXXXXX',
+  'XXXXXXXXXXXXXX',
+];
+const SCARED_TOP = [
+  '.....XXXX.....',
+  '...XXXXXXXX...',
+  '..XXXXXXXXXX..',
+  '.XXXXXXXXXXXX.',
+  '.XXXWWXXWWXXX.',
+  '.XXXWWXXWWXXX.',
+  'XXXXXXXXXXXXXX',
+  'XXXXXXXXXXXXXX',
+  'XXWWXXWWXXWWXX',
+  'XWXXWWXXWWXXWX',
+  'XXXXXXXXXXXXXX',
+  'XXXXXXXXXXXXXX',
+];
+const SKIRT_A = ['XX.XXX..XXX.XX', 'X...XX..XX...X'];
+const SKIRT_B = ['XXXX.XXXX.XXXX', '.XX...XX...XX.'];
+const PAC_OPEN = [
+  '....XXXXX....',
+  '..XXXXXXXXX..',
+  '.XXXXXXXXXXX.',
+  '.XXXXXXXXX...',
+  'XXXXXXXX.....',
+  'XXXXXX.......',
+  'XXXX.........',
+  'XXXXXX.......',
+  'XXXXXXXX.....',
+  '.XXXXXXXXX...',
+  '.XXXXXXXXXXX.',
+  '..XXXXXXXXX..',
+  '....XXXXX....',
+];
+const PAC_SHUT = [
+  '....XXXXX....',
+  '..XXXXXXXXX..',
+  '.XXXXXXXXXXX.',
+  '.XXXXXXXXXXX.',
+  'XXXXXXXXXXXXX',
+  'XXXXXXXXXXXXX',
+  'XXXXXXXXXXXXX',
+  'XXXXXXXXXXXXX',
+  'XXXXXXXXXXXXX',
+  '.XXXXXXXXXXX.',
+  '.XXXXXXXXXXX.',
+  '..XXXXXXXXX..',
+  '....XXXXX....',
+];
+
+/** @type {Record<string, SpriteDefinition>} */
+export const SPRITES = {
+  ghost: {
+    rows: GHOST_TOP.concat(SKIRT_A),
+    rows2: GHOST_TOP.concat(SKIRT_B),
+    pal: { X: '#ff3b3b', W: '#ffffff', B: '#2121de' },
+  },
+  scared: {
+    rows: SCARED_TOP.concat(SKIRT_A),
+    pal: { X: '#2121ff', W: '#ffb897' },
+    pal2: { X: '#f0f0ff', W: '#ff3b3b' },
+  },
+  pac: { rows: PAC_OPEN, rows2: PAC_SHUT, pal: { X: '#ffe000' } },
+  heart: {
+    rows: [
+      '.XXX...XXX.',
+      'XXYXX.XXXXX',
+      'XYXXXXXXXXX',
+      'XXXXXXXXXXX',
+      'XXXXXXXXXXX',
+      '.XXXXXXXXX.',
+      '..XXXXXXX..',
+      '...XXXXX...',
+      '....XXX....',
+      '.....X.....',
+    ],
+    pal: { X: '#ffc83d', Y: '#fff6c8' },
+  },
+  babel: {
+    rows: [
+      '...XXXX.....',
+      '.XXXXXXXX..X',
+      'XKXXXXXXXXXX',
+      'XXXXXXXXXXX.',
+      'XXXXXXXXXXXX',
+      '.XXXXXXXX..X',
+      '...XXXX.....',
+    ],
+    pal: { X: '#ffe000', K: '#04040c' },
+  },
+  marvin: {
+    rows: [
+      '...XXXXXX...',
+      '.XXXXXXXXXX.',
+      '.XXXXXXXXXX.',
+      'XXXXXXXXXXXX',
+      'XXGGXXXXGGXX',
+      'XXGGXXXXGGXX',
+      'XXXXXXXXXXXX',
+      'XXXXXXXXXXXX',
+      'XXXXDDDDXXXX',
+      'XXXDXXXXDXXX',
+      '.XXXXXXXXXX.',
+      '...XXXXXX...',
+    ],
+    pal: { X: '#9aa3c0', G: '#3dff6e', D: '#2a2f45' },
+  },
+  deep: {
+    rows: [
+      'XXXXXXXXXXXX',
+      'XKKKKKKKKKKX',
+      'XKGKGKGGGKKX',
+      'XKGKGKKKGKKX',
+      'XKGGGKGGGKKX',
+      'XKKKGKGKKKKX',
+      'XKKKGKGGGKKX',
+      'XKKKKKKKKKKX',
+      'XXXXXXXXXXXX',
+      '....XXXX....',
+      '..XXXXXXXX..',
+    ],
+    pal: { X: '#8f8fc4', K: '#06101a', G: '#3dff6e' },
+  },
+  planet: {
+    rows: [
+      '....XXXX....',
+      '..XXXXXXXX..',
+      '.XXLLXXXXXX.',
+      '.XLLXXXXXXX.',
+      'XXXXXXXXXXXX',
+      'DDDDDDDDDDDD',
+      'XXXXXXXXXXXX',
+      'XXXXXXXXXXXX',
+      '.DDDDDDDDDD.',
+      '.XXXXXXXXXX.',
+      '..XXXXXXXX..',
+      '....XXXX....',
+    ],
+    pal: { X: '#ffb852', D: '#d9731a', L: '#ffe7c2' },
+  },
+  towel: {
+    rows: [
+      'XXXXXXXXXXXX',
+      'XXXXXXXXXXXX',
+      'SSSSSSSSSSSS',
+      'XXXXXXXXXXXX',
+      'XXXXXXXXXXXX',
+      'XXXXXXXXXXXX',
+      'SSSSSSSSSSSS',
+      'XXXXXXXXXXXX',
+      'F.F.F.F.F.F.',
+      '.F.F.F.F.F.F',
+    ],
+    pal: { X: '#ffb8ff', S: '#00e5ff', F: '#ffb8ff' },
+  },
+  zaphod: {
+    rows: [
+      '.HHH....HHH.',
+      'XXXXX..XXXXX',
+      'XWXWX..XWXWX',
+      'XXXXX..XXXXX',
+      'XRRRX..XRRRX',
+      '.XXX....XXX.',
+      '..CCCCCCCC..',
+      '.CCCCCCCCCC.',
+      'CCCCCCCCCCCC',
+      'CCCCCCCCCCCC',
+    ],
+    pal: { H: '#ffe000', X: '#ffb897', W: '#04040c', R: '#c8102e', C: '#ff3b3b' },
+  },
+  vogon: {
+    rows: [
+      '...XXXXXX...',
+      '..XXXXXXXX..',
+      '.XXXXXXXXXX.',
+      '.XWWXXXXWWX.',
+      '.XWKXXXXKWX.',
+      'XXXXXXXXXXXX',
+      'XXXXXNNXXXXX',
+      'XXXXNNNNXXXX',
+      'XXXXXXXXXXXX',
+      'XXKKKKKKKKXX',
+      '.XXXXXXXXXX.',
+      '..XXXXXXXX..',
+    ],
+    pal: { X: '#8fc93a', W: '#ffffff', K: '#1a2a0a', N: '#5f8f22' },
+  },
+  sensomatic: {
+    rows: [
+      '..........A.',
+      '.........A..',
+      '........A...',
+      'XXXXXXXXXX..',
+      'XSSSSSSSSX..',
+      'XSGSSGSSSX..',
+      'XSSGGSGSSX..',
+      'XSSSSSSGSX..',
+      'XXXXXXXXXX..',
+      'XBXBXRRXXX..',
+      'XXXXXXXXXX..',
+    ],
+    pal: { A: '#ff3b3b', X: '#8f8fc4', S: '#001a22', G: '#00e5ff', B: '#ffe000', R: '#ff3b3b' },
+  },
+  qbox: {
+    rows: [
+      'XXXXXXXXXXXX',
+      'XOOOOOOOOOOX',
+      'XOOOQQQQOOOX',
+      'XOOQQOOQQOOX',
+      'XOOOOOOQQOOX',
+      'XOOOOOQQOOOX',
+      'XOOOOQQOOOOX',
+      'XOOOOQQOOOOX',
+      'XOOOOOOOOOOX',
+      'XOOOOQQOOOOX',
+      'XOOOOOOOOOOX',
+      'XXXXXXXXXXXX',
+    ],
+    pal: { X: '#7a3d00', O: '#ffb852', Q: '#fff6c8' },
+  },
+  whale: {
+    rows: [
+      '..XXXXXXXXXXX.....',
+      '.XXXXXXXXXXXXXX...',
+      'XXKXXXXXXXXXXXXX.X',
+      'XXXXXXXXXXXXXXXXXX',
+      'XXXXXXXXXXXXXXXXX.',
+      'LLLLXXXXXXXXXXXX.X',
+      '.LLLLLLLXXXXXXX...',
+      '...LLLLLLLL.......',
+    ],
+    pal: { X: '#5a7bd6', L: '#b8c8ff', K: '#04040c' },
+  },
+  petunia: {
+    rows: [
+      'PP..PP..',
+      'PYP.PYP.',
+      '.PP.PP..',
+      '..G.G...',
+      '...GG...',
+      'OOOOOOOO',
+      '.OOOOOO.',
+      '.OOOOOO.',
+      '..OOOO..',
+    ],
+    pal: { P: '#ff5fd2', Y: '#ffe000', G: '#3dff6e', O: '#d9731a' },
+  },
+};
+
+/** Sprites que um verbete de tema pode escolher (validado também no servidor). */
+export const SPRITE_NAMES = Object.freeze(Object.keys(SPRITES));

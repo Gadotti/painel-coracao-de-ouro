@@ -1,0 +1,31 @@
+{
+  "agentes": {
+    "meu-agente": {
+      "nome": "Arthur Dent",
+      "papel": "Terráqueo de roupão",
+      "cor": "#00e5ff",
+      "desc": "Exemplo de verbete próprio: troque o id pela chave usada no seu status.json.",
+      "frases": ["Eu nunca consegui me acostumar com as quintas-feiras."]
+    }
+  },
+  "programas": {
+    "meu-servico": {
+      "nome": "Milliways",
+      "sprite": "planet",
+      "cor": "#ffc83d",
+      "desc": "Exemplo de programa com nome do Guia.",
+      "frase": "O restaurante no fim do universo."
+    }
+  },
+  "crons": {
+    "meu-cron": "Formulário 7-G · meu cron"
+  },
+  "roadmap": [
+    {
+      "nome": "Galeria de Slartibartfast",
+      "real": "Upload de fotos",
+      "sprite": "qbox",
+      "desc": "Exemplo de item de roadmap. Se `roadmap` for informado, substitui a lista padrão inteira."
+    }
+  ]
+}

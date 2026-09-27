@@ -1,0 +1,110 @@
+{
+  "agentes": {
+    "bot-telegram": {
+      "nome": "Eddie",
+      "papel": "Computador de bordo",
+      "cor": "#ffb8ff",
+      "desc": "Bot de chat que recebe comandos e responde com o resultado.",
+      "frases": [
+        "Olá, pessoal! Estou me sentindo ótimo!",
+        "Que dia maravilhoso para um long polling!",
+        "Pronto para o próximo comando. E adorando!"
+      ]
+    },
+    "backup-sd": {
+      "nome": "Magrathea",
+      "papel": "Fábrica de planetas",
+      "cor": "#ffb852",
+      "desc": "Clona o cartão SD inteiro para um disco de reserva.",
+      "frases": ["Planetas de luxo sob encomenda. Cópia fiel, fiordes inclusos."]
+    }
+  },
+  "programas": {
+    "analisador": {
+      "nome": "Deep Thought",
+      "sprite": "deep",
+      "cor": "#3dff6e",
+      "desc": "Aplicação que processa dados e calcula respostas.",
+      "frase": "Calculando… volte em 7,5 milhões de anos."
+    },
+    "portainer": {
+      "nome": "Segunda Cabeça",
+      "sprite": "zaphod",
+      "cor": "#ffb852",
+      "desc": "Portainer: gerência dos containers Docker.",
+      "frase": "Duas cabeças pensam melhor que uma."
+    },
+    "cronitor-dash": {
+      "nome": "Capitão Jeltz",
+      "sprite": "vogon",
+      "cor": "#9be15d",
+      "desc": "Cronitor: painel de gerenciamento dos crons.",
+      "frase": "Quem comanda a burocracia."
+    },
+    "dietpi-dashboard": {
+      "nome": "Sub-Etha Sens-O-Matic",
+      "sprite": "sensomatic",
+      "cor": "#00e5ff",
+      "desc": "DietPi-Dashboard: processos, serviços e terminal do host.",
+      "frase": "Captando sinais de toda a galáxia."
+    },
+    "samba": {
+      "nome": "Toalha",
+      "sprite": "towel",
+      "cor": "#ffb8ff",
+      "desc": "Servidor Samba: pastas compartilhadas na rede.",
+      "frase": "Sempre saiba onde está sua toalha."
+    },
+    "uptime-kuma": {
+      "nome": "Frankie & Benjy",
+      "sprite": "qbox",
+      "cor": "#ffb8ff",
+      "desc": "Uptime Kuma: os ratos que observam se cada serviço está no ar.",
+      "frase": "Observando tudo, como sempre."
+    },
+    "nginx-proxy-manager": {
+      "nome": "Desvio Hiperespacial",
+      "sprite": "qbox",
+      "cor": "#00e5ff",
+      "desc": "Nginx Proxy Manager: proxy reverso com HTTPS.",
+      "frase": "Via expressa aberta. Nenhum planeta foi demolido."
+    }
+  },
+  "crons": {
+    "backup-sd": "Magrathea · clone do SD",
+    "coletor-painel": "Coletor da ponte de comando",
+    "faxina-docker": "Faxina do hangar"
+  },
+  "roadmap": [
+    {
+      "nome": "Frankie & Benjy",
+      "real": "Uptime Kuma",
+      "sprite": "qbox",
+      "desc": "Os ratos que observam tudo: “está no ar?” de cada serviço, com alertas."
+    },
+    {
+      "nome": "Desvio Hiperespacial",
+      "real": "Proxy reverso + HTTPS",
+      "sprite": "qbox",
+      "desc": "Via expressa para expor serviços com certificado. Sem demolir a Terra."
+    },
+    {
+      "nome": "Detector de Vogons",
+      "real": "Anomalias de rede",
+      "sprite": "qbox",
+      "desc": "Avisa quando algo estranho entra na rede."
+    },
+    {
+      "nome": "Cofre do Milliways",
+      "real": "Backup externo",
+      "sprite": "qbox",
+      "desc": "Backups criptografados fora do servidor, rodando via cron."
+    },
+    {
+      "nome": "Vaga na tripulação",
+      "real": "próximo agente",
+      "sprite": "ghost",
+      "desc": "Todo agente novo no status.json embarca aqui sozinho."
+    }
+  ]
+}

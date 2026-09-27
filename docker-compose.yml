@@ -1,0 +1,24 @@
+# Exemplo de implantação. O coletor roda no host e grava o status em tmpfs (/run),
+# que é montado somente leitura no container.
+services:
+  coracao-de-ouro:
+    image: ghcr.io/gadotti/painel-coracao-de-ouro:latest
+    restart: unless-stopped
+    ports:
+      - '4242:4242'
+    environment:
+      - LOG_LEVEL=info
+      # Verbetes próprios (nomes dos seus agentes e roadmap):
+      # - THEME_PATH=/tema/theme.json
+      # Autenticação opcional (gere o hash com `npm run hash-password`):
+      # - PANEL_USER=mochileiro
+      # - PANEL_PASSWORD_HASH=scrypt:32768:8:1:...
+    volumes:
+      - /run/coracao-de-ouro:/dados:ro
+      # - ./theme.json:/tema/theme.json:ro
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 128m

@@ -1,0 +1,6 @@
+node_modules/
+coverage/
+_deploys/
+data/
+package-lock.json
+public/fonts/

@@ -1,0 +1,116 @@
+{
+  "gerado_em": "2026-09-27T11:30:00Z",
+  "host": {
+    "nome": "nave-exemplo",
+    "modelo": "Raspberry Pi 3 Model B",
+    "so": "DietPi",
+    "ip": "192.0.2.10",
+    "uptime_s": 1048620
+  },
+  "hardware": {
+    "cpu_pct": 14.2,
+    "temp_c": 51.5,
+    "load": [0.52, 0.47, 0.41],
+    "ram": { "usado_mb": 540, "total_mb": 921 },
+    "swap": { "usado_mb": 96, "total_mb": 1024 },
+    "disco": { "usado_gb": 9.8, "total_gb": 29.1 },
+    "throttled": "0x0"
+  },
+  "rede": {
+    "interface": "eth0",
+    "gateway": "192.0.2.1",
+    "rx_kbps": 180,
+    "tx_kbps": 42,
+    "ping_ms": 18,
+    "internet": true,
+    "dependencias": [{ "nome": "api do chat", "ok": true, "nota": "Eddie depende disto" }]
+  },
+  "agentes": [
+    {
+      "id": "bot-telegram",
+      "tipo": "systemd",
+      "estado": "ok",
+      "ultima_atividade": "2026-09-27T11:26:00Z",
+      "mensagem": "long polling ativo · último comando: /status"
+    },
+    {
+      "id": "backup-sd",
+      "tipo": "cron",
+      "estado": "ok",
+      "ultima_atividade": "2026-09-27T06:18:00Z",
+      "mensagem": "clone concluído em 18 min, sem erros"
+    }
+  ],
+  "programas": [
+    {
+      "id": "analisador",
+      "tipo": "docker",
+      "estado": "ok",
+      "porta": 8765,
+      "cpu_pct": 1.2,
+      "mem_mb": 96,
+      "desde": "2026-09-24T11:30:00Z"
+    },
+    {
+      "id": "portainer",
+      "tipo": "docker",
+      "estado": "ok",
+      "porta": 9000,
+      "cpu_pct": 0.4,
+      "mem_mb": 38,
+      "desde": "2026-09-15T08:13:00Z"
+    },
+    {
+      "id": "cronitor-dash",
+      "tipo": "systemd",
+      "estado": "ok",
+      "porta": 9001,
+      "desde": "2026-09-15T08:13:00Z"
+    },
+    {
+      "id": "samba",
+      "tipo": "systemd",
+      "estado": "ok",
+      "compartilhamento": "\\\\nave-exemplo",
+      "desde": "2026-09-15T08:13:00Z"
+    }
+  ],
+  "crons": [
+    {
+      "id": "backup-sd",
+      "expressao": "0 3 * * 0",
+      "comando": "python3 /opt/agentes/backup_sd.py",
+      "ultima": "2026-09-27T06:00:00Z",
+      "duracao_s": 1080,
+      "resultado": "ok"
+    },
+    {
+      "id": "coletor-painel",
+      "expressao": "* * * * *",
+      "comando": "python3 /opt/agentes/coletor.py",
+      "ultima": "2026-09-27T11:30:00Z",
+      "duracao_s": 1,
+      "resultado": "ok"
+    }
+  ],
+  "eventos": [
+    {
+      "ts": "2026-09-27T11:26:00Z",
+      "nivel": "info",
+      "origem": "bot-telegram",
+      "texto": "/status recebido, 4 serviços listados"
+    },
+    {
+      "ts": "2026-09-27T06:18:00Z",
+      "nivel": "info",
+      "origem": "backup-sd",
+      "texto": "clone concluído: disco sincronizado"
+    },
+    {
+      "ts": "2026-09-25T14:02:00Z",
+      "nivel": "aviso",
+      "origem": "host",
+      "texto": "núcleo ficou acima de 68 °C por 5 min"
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Coração de Ouro</title>
+    <meta name="description" content="Ponte de comando do servidor: hardware, agentes, programas e crons." />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="fonts/silkscreen-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/vt323-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/panels.css" />
+    <link rel="stylesheet" href="css/effects.css" />
+    <script type="module" src="js/app.js"></script>
+  </head>
+  <body>
+    <canvas id="stars" aria-hidden="true"></canvas>
+
+    <div class="wrap">
+      <header class="top">
+        <div class="brand">
+          <span data-spr="heart" data-scale="5"></span>
+          <div>
+            <h1>CORAÇÃO DE OURO</h1>
+            <p>Ponte de comando da nave <b id="hostname">—</b></p>
+          </div>
+        </div>
+        <div class="panic" id="panic" role="status" aria-live="polite">
+          <strong id="panic-title">NÃO ENTRE EM PÂNICO</strong>
+          <span id="panic-sub">Ligando o motor de improbabilidade…</span>
+        </div>
+        <div class="answer" title="Checagens de saúde que passaram, na escala de 0 a 42">
+          <div class="score" id="score">--</div>
+          <small>A RESPOSTA SOBRE O SISTEMA, O UNIVERSO E TUDO MAIS</small>
+        </div>
+      </header>
+
+      <div class="bar">
+        <span class="badge demo" id="badge">… AGUARDANDO</span>
+        <span class="clock" id="clock">--:--:--</span>
+        <span class="where" id="where">Setor ZZ9 Plural Z Alfa</span>
+        <span class="sep"></span>
+        <button class="btn alt" id="btn-guia" type="button">O GUIA</button>
+        <button class="btn" id="btn-improb" type="button">ATIVAR IMPROBABILIDADE ∞</button>
+      </div>
+
+      <section class="lane" aria-label="Rota hiperespacial do dia">
+        <div class="lane-head">
+          <span>ROTA HIPERESPACIAL DO DIA · cada pastilha é um cron agendado</span>
+          <span id="lane-next">—</span>
+        </div>
+        <div class="track" id="track"></div>
+        <div class="hours">
+          <span>00h</span><span>03h</span><span>06h</span><span>09h</span><span>12h</span><span>15h</span
+          ><span>18h</span><span>21h</span><span>24h</span>
+        </div>
+      </section>
+
+      <main class="grid">
+        <section class="panel s5 accent-cyan" aria-labelledby="h-motor">
+          <div class="ph">
+            <span data-spr="heart" data-scale="3"></span>
+            <div>
+              <h2 id="h-motor">MOTOR DE IMPROBABILIDADE INFINITA</h2>
+              <p>hardware · cpu · memória · temperatura</p>
+            </div>
+          </div>
+          <div class="bigs">
+            <div class="big"><span class="lbl">CPU</span><b id="hw-cpu">--</b><small>%</small></div>
+            <div class="big"><span class="lbl">NÚCLEO</span><b id="hw-temp">--</b><small>°C</small></div>
+            <div class="big c-cyan"><span class="lbl">CARGA 1M</span><b id="hw-load">--</b></div>
+          </div>
+          <div class="spark">
+            <canvas id="cpu-spark" aria-label="Histórico de uso da CPU"></canvas>
+            <div class="cap"><span>CPU · ÚLTIMAS LEITURAS</span><span id="cpu-cap">—</span></div>
+          </div>
+          <div id="meters"></div>
+          <dl class="kv">
+            <dt>NO AR HÁ</dt>
+            <dd id="hw-uptime">—</dd>
+            <dt>ENERGIA</dt>
+            <dd id="hw-power">—</dd>
+            <dt>CASCO</dt>
+            <dd id="hw-model">—</dd>
+          </dl>
+          <p class="flavor">
+            Improbabilidade atual: <b>1 para 2<sup id="improb">—</sup></b>
+          </p>
+        </section>
+
+        <section class="panel s7 accent-pink" aria-labelledby="h-crew">
+          <div class="ph">
+            <span data-spr="ghost" data-scale="3" data-ghost-color="#ffb8ff"></span>
+            <div>
+              <h2 id="h-crew">TRIPULAÇÃO</h2>
+              <p>agentes e scripts que trabalham sozinhos</p>
+            </div>
+            <div class="meta" id="crew-meta"></div>
+          </div>
+          <div class="crew-list" id="crew"></div>
+        </section>
+
+        <section class="panel s7 accent-orange" aria-labelledby="h-hangar">
+          <div class="ph">
+            <span data-spr="zaphod" data-scale="3"></span>
+            <div>
+              <h2 id="h-hangar">HANGAR</h2>
+              <p>programas, containers e serviços</p>
+            </div>
+            <div class="meta" id="hangar-meta"></div>
+          </div>
+          <ul class="ships" id="hangar"></ul>
+        </section>
+
+        <section class="panel s5 accent-yellow" aria-labelledby="h-babel">
+          <div class="ph">
+            <span data-spr="babel" data-scale="3"></span>
+            <div>
+              <h2 id="h-babel">PEIXE BABEL</h2>
+              <p>rede · tráfego · conexões externas</p>
+            </div>
+          </div>
+          <div class="rates">
+            <div class="big c-cyan">
+              <span class="lbl">ENTRADA</span><b id="net-rx">--</b><small id="net-rx-u"></small>
+            </div>
+            <div class="big c-pink">
+              <span class="lbl">SAÍDA</span><b id="net-tx">--</b><small id="net-tx-u"></small>
+            </div>
+            <div class="big c-yellow">
+              <span class="lbl">PING</span><b id="net-ping">--</b><small>ms</small>
+            </div>
+          </div>
+          <div class="spark">
+            <canvas id="net-spark" aria-label="Histórico de tráfego de rede"></canvas>
+            <div class="cap">
+              <span><span class="key-rx">■</span> ENTRADA <span class="key-tx">■</span> SAÍDA</span
+              ><span id="net-cap">—</span>
+            </div>
+          </div>
+          <div class="links" id="net-links"></div>
+          <p class="flavor">Traduzindo pacotes de todas as línguas da galáxia há <b id="net-since">—</b>.</p>
+        </section>
+
+        <section class="panel s7 accent-vogon" aria-labelledby="h-vogon">
+          <div class="ph">
+            <span data-spr="vogon" data-scale="3"></span>
+            <div>
+              <h2 id="h-vogon">BUROCRACIA VOGON</h2>
+              <p>crons · formulário 42-B, em triplicata</p>
+            </div>
+            <div class="meta" id="vogon-meta"></div>
+          </div>
+          <div class="scroll-x">
+            <table class="forms">
+              <thead>
+                <tr>
+                  <th>FORMULÁRIO</th>
+                  <th>AGENDA</th>
+                  <th>ÚLTIMA</th>
+                  <th>CARIMBO</th>
+                  <th>PRÓXIMA</th>
+                </tr>
+              </thead>
+              <tbody id="vogon"></tbody>
+            </table>
+          </div>
+          <p class="flavor">Resistência é inútil. Jobs sem carimbo nunca rodaram.</p>
+        </section>
+
+        <section class="panel s5 accent-muted" aria-labelledby="h-marvin">
+          <div class="ph">
+            <span data-spr="marvin" data-scale="3"></span>
+            <div>
+              <h2 id="h-marvin">MARVIN</h2>
+              <p>diário de bordo · alertas e eventos</p>
+            </div>
+          </div>
+          <div class="mood">
+            <span class="lbl">DEPRESSÃO</span>
+            <div id="mood"></div>
+            <span id="mood-val">—</span>
+          </div>
+          <ol class="log" id="log"></ol>
+        </section>
+
+        <section class="panel s12 accent-orange" aria-labelledby="h-terra">
+          <div class="ph">
+            <span data-spr="planet" data-scale="3"></span>
+            <div>
+              <h2 id="h-terra">TERRA MK II · EM CONSTRUÇÃO</h2>
+              <p>o que Magrathea ainda vai entregar nesta nave</p>
+            </div>
+          </div>
+          <div class="future" id="future"></div>
+        </section>
+      </main>
+
+      <footer>
+        <span class="bye">ATÉ MAIS, E OBRIGADO PELOS PEIXES.</span>
+        <span id="demo-ctl" hidden
+          >Cenário simulado:
+          <select id="cenario" aria-label="Cenário da simulação">
+            <option value="calmo">Tudo calmo</option>
+            <option value="vogons">Vogons à vista</option>
+            <option value="panico">Pânico total</option>
+          </select>
+        </span>
+        <span id="src">Fonte: —</span>
+      </footer>
+    </div>
+
+    <dialog id="guia" aria-labelledby="guia-t">
+      <h2 id="guia-t">O GUIA DO MOCHILEIRO DA PONTE DE COMANDO</h2>
+      <p>
+        Verbete completo: “Praticamente inofensivo.” Abaixo, o que cada nome desta ponte de comando quer
+        dizer.
+      </p>
+      <h3>ÁREAS DO PAINEL</h3>
+      <table class="gl">
+        <tbody id="gl-areas"></tbody>
+      </table>
+      <h3>TRIPULAÇÃO E HANGAR</h3>
+      <table class="gl">
+        <tbody id="gl-crew"></tbody>
+      </table>
+      <h3>COMO LER OS FANTASMAS</h3>
+      <div class="legend" id="legend"></div>
+      <h3>DE ONDE VÊM OS DADOS</h3>
+      <p>
+        O painel consulta <b>/api/status</b> a cada 15 segundos. O servidor lê o <b>status.json</b> gerado
+        pelo coletor do host, valida e entrega só os campos conhecidos. Para ver dados fictícios, abra com
+        <b>?demo</b> ou <b>?cenario=panico</b>. Agentes e programas novos entram sozinhos, com nome genérico
+        até ganharem um verbete no tema.
+      </p>
+      <p class="actions"><button class="btn" id="guia-close" type="button">FECHAR O GUIA</button></p>
+    </dialog>
+  </body>
+</html>

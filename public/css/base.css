@@ -1,0 +1,138 @@
+/* Tokens, fontes, reset e utilitários. Precisa ser a primeira folha carregada. */
+
+@font-face {
+  font-family: 'Silkscreen';
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/silkscreen-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Silkscreen';
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/silkscreen-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'VT323';
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/vt323-400.woff2') format('woff2');
+}
+
+:root {
+  --bg: #04040c;
+  --panel: #08081a;
+  --panel-2: #0f0f2c;
+  --line: #1c1c4a;
+  --maze: #2121de;
+  --yellow: #ffe000;
+  --red: #ff3b3b;
+  --pink: #ffb8ff;
+  --cyan: #00e5ff;
+  --orange: #ffb852;
+  --green: #3dff6e;
+  --gold: #ffc83d;
+  --dot: #ffb897;
+  --vogon: #9be15d;
+  --text: #e9e9ff;
+  --muted: #9494c8;
+  --dim: #4a4a7a;
+  --px: 'Silkscreen', ui-monospace, monospace;
+  --term: 'VT323', ui-monospace, monospace;
+  --glow: 0 0 14px rgba(33, 33, 222, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+}
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font:
+    21px/1.2 var(--term),
+    ui-monospace,
+    monospace;
+  -webkit-font-smoothing: none;
+  overflow-x: hidden;
+}
+a {
+  color: inherit;
+}
+
+/* Cores semânticas: definem --c, que cada componente usa como cor principal. */
+.lvl-ok {
+  --c: var(--green);
+}
+.lvl-warn {
+  --c: var(--yellow);
+}
+.lvl-bad {
+  --c: var(--red);
+}
+.lvl-dim {
+  --c: var(--muted);
+}
+.c-cyan {
+  --c: var(--cyan);
+}
+.c-pink {
+  --c: var(--pink);
+}
+.c-yellow {
+  --c: var(--yellow);
+}
+
+.accent-cyan {
+  --accent: var(--cyan);
+}
+.accent-pink {
+  --accent: var(--pink);
+}
+.accent-orange {
+  --accent: var(--orange);
+}
+.accent-yellow {
+  --accent: var(--yellow);
+}
+.accent-vogon {
+  --accent: var(--vogon);
+}
+.accent-muted {
+  --accent: var(--muted);
+}
+
+.st-ok {
+  color: var(--green);
+}
+.st-aviso {
+  color: var(--yellow);
+}
+.st-falha {
+  color: var(--red);
+}
+.st-parado {
+  color: var(--muted);
+}
+.key-rx {
+  color: var(--cyan);
+}
+.key-tx {
+  color: var(--pink);
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}

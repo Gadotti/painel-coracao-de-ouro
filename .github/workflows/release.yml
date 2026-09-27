@@ -86,7 +86,7 @@ jobs:
       # Atestados em repositório privado exigem GitHub Enterprise; liga sozinho quando o repo for público.
       - name: Atestado de origem da imagem
         if: ${{ !github.event.repository.private }}
-        uses: actions/attest-build-provenance@v2
+        uses: actions/attest-build-provenance@v4
         with:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.push.outputs.digest }}

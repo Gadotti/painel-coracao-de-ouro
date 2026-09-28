@@ -1,6 +1,6 @@
 {
   "name": "painel-coracao-de-ouro",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Painel de controle 8-bit para servidores caseiros (Raspberry Pi), temático do Guia do Mochileiro das Galáxias.",
   "type": "module",
   "main": "src/server.js",

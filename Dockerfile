@@ -1,12 +1,12 @@
 # syntax=docker/dockerfile:1
 # Imagem multi-arch (amd64, arm64, arm/v7): nenhuma dependência nativa, então não há etapa de compilação.
 
-FROM node:22-alpine AS deps
+FROM node:25-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev --ignore-scripts && npm cache clean --force
 
-FROM node:22-alpine
+FROM node:25-alpine
 ENV NODE_ENV=production \
     PORT=4242 \
     HOST=0.0.0.0 \

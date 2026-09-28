@@ -204,9 +204,23 @@ describe('drawBars', () => {
     expect(painted.length).toBeGreaterThan(2);
   });
 
-  it('não faz nada sem tamanho ou sem contexto 2D', () => {
+  it('sem tamanho nem pede o contexto 2D (o jsdom logaria "Not implemented")', () => {
     const canvas = document.createElement('canvas');
+    let contextRequests = 0;
+    canvas.getContext = () => {
+      contextRequests++;
+      return null;
+    };
+    drawBars(canvas, { series: [], max: 1, slots: 1 });
+    expect(contextRequests).toBe(0);
+  });
+
+  it('não faz nada sem contexto 2D', () => {
+    const canvas = document.createElement('canvas');
+    Object.defineProperty(canvas, 'clientWidth', { value: 96 });
+    Object.defineProperty(canvas, 'clientHeight', { value: 20 });
     canvas.getContext = () => null;
     expect(() => drawBars(canvas, { series: [], max: 1, slots: 1 })).not.toThrow();
+    expect(canvas.width).not.toBe(96);
   });
 });

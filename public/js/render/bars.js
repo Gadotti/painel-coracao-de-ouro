@@ -12,8 +12,11 @@ import { computeBarRects } from '../lib/barLayout.js';
 export function drawBars(canvas, chart) {
   const width = canvas.clientWidth;
   const height = canvas.clientHeight;
+  // Checa o tamanho antes de pedir o contexto: canvas oculto (ou sem layout, como no jsdom) não
+  // precisa de contexto, e o jsdom loga "Not implemented" a cada getContext sem o pacote canvas.
+  if (!width || !height) return;
   const context = canvas.getContext?.('2d');
-  if (!width || !height || !context) return;
+  if (!context) return;
   const ratio = globalThis.devicePixelRatio || 1;
   if (canvas.width !== Math.round(width * ratio)) {
     canvas.width = Math.round(width * ratio);

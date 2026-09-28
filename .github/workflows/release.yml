@@ -96,7 +96,7 @@ jobs:
         run: node scripts/release-zip.js
 
       - name: Release no GitHub
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: _deploys/*.zip
           generate_release_notes: true

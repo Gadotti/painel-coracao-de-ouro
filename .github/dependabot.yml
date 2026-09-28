@@ -25,3 +25,7 @@ updates:
       interval: weekly
     cooldown:
       default-days: 7
+    # Node 24+ em Alpine não tem imagem linux/arm/v7, que o release publica (Raspberry Pi 32 bits).
+    ignore:
+      - dependency-name: node
+        update-types: ['version-update:semver-major']

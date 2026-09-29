@@ -87,6 +87,54 @@ Coloque `PANEL_USER` e o hash gerado no ambiente do container. A senha é guarda
 cada 15 minutos. `/healthz` continua público para o `HEALTHCHECK`. Para expor o painel fora de casa,
 use um proxy reverso com HTTPS na frente.
 
+### Tema próprio (nomes dos seus agentes)
+
+Todo agente, programa ou cron que está no `status.json` aparece no painel, mesmo sem tema. Quem não
+tem verbete aparece com o id em maiúsculas, o papel "Tripulante recém-embarcado" e uma cor de
+fantasma. O tema serve para dar a cada um nome, papel, cor e frases do Guia.
+
+**Não edite o `src/theme/defaultTheme.json`.** Ele vai dentro da imagem, então a próxima
+atualização apaga o que você mudar. Crie um tema seu com **só o que for novo ou diferente**. O
+servidor mescla esse arquivo com o padrão, verbete a verbete:
+
+```json
+{
+  "agentes": {
+    "id-do-agente-no-status-json": {
+      "nome": "Arthur Dent",
+      "papel": "Terráqueo de roupão",
+      "cor": "#00e5ff",
+      "desc": "O que esse agente faz.",
+      "frases": ["Eu nunca consegui me acostumar com as quintas-feiras."]
+    }
+  }
+}
+```
+
+Depois, aponte `THEME_PATH` para esse arquivo:
+
+- **Docker:** ative no `docker-compose.yml` a variável `THEME_PATH=/tema/theme.json` e o volume
+  `./theme.json:/tema/theme.json:ro`.
+- **Local:** salve o arquivo em `data/theme.json`, que fica fora do Git, e coloque
+  `THEME_PATH=./data/theme.json` no `.env`.
+
+Regras principais:
+
+- A chave de cada agente precisa ser **igual ao `id`** que o coletor grava em `agentes[]`.
+- Todos os campos são obrigatórios. `nome` vai até 40 caracteres, `papel` até 60, `desc` até 200 e
+  `frases` tem de 1 a 10 itens de até 140 caracteres.
+- A cor só é aceita no formato `#rrggbb`.
+- `agentes`, `programas` e `crons` são mesclados pelo id. O `roadmap`, se aparecer no seu arquivo,
+  substitui a lista padrão inteira.
+- Não precisa reiniciar o servidor: o tema é lido a cada pedido, então basta recarregar a página.
+- Se o tema for inválido, o painel usa o padrão e grava `tema.personalizado_ignorado` no log, com o
+  motivo.
+
+Todos os campos, incluindo `programas`, `crons` e `roadmap`, estão em
+[`examples/theme.example.json`](examples/theme.example.json) e no
+[contrato do tema](docs/contrato-status.md#tema-themejson). O limite de 50 agentes vale para o
+`status.json`, não para o tema.
+
 ## Desenvolvimento
 
 Requisitos: **Node.js 22.13+**.

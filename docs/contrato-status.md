@@ -133,5 +133,5 @@ e aponte `THEME_PATH` para ele. Exemplo: [`examples/theme.example.json`](../exam
 - `agentes`, `programas` e `crons` são **mesclados** por id com o padrão.
 - `roadmap`, se informado, **substitui** a lista padrão inteira.
 - Cores só no formato `#rrggbb`. Sprites disponíveis: `ghost`, `scared`, `pac`, `heart`, `babel`,
-  `marvin`, `deep`, `planet`, `towel`, `zaphod`, `vogon`, `sensomatic`, `qbox`, `whale`, `petunia`.
+  `marvin`, `deep`, `planet`, `towel`, `zaphod`, `vogon`, `sensomatic`, `qbox`, `whale`, `rocket`, `petunia`.
 - Tema inválido não derruba o painel: o servidor usa o padrão e registra o erro no log.

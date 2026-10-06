@@ -247,6 +247,20 @@ table.forms {
   overflow: auto;
   font-size: 19px;
 }
+/* Lado a lado com outro painel, o diário ocupa a altura que sobra da linha do grid.
+   contain: size impede que o conteúdo do log aumente a linha; só a rolagem cresce. */
+@media (min-width: 1151px) {
+  .panel-marvin {
+    display: flex;
+    flex-direction: column;
+  }
+  .panel-marvin .log {
+    flex: 1;
+    min-height: 240px;
+    max-height: none;
+    contain: size;
+  }
+}
 .log li {
   padding: 5px 0;
   border-bottom: 1px dashed #1f1f48;

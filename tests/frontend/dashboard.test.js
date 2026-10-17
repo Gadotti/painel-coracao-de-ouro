@@ -54,6 +54,32 @@ describe('painel ao vivo com o status de exemplo', () => {
     expect(text('crew-meta')).toBe('2/2EM ÓRBITA');
   });
 
+  it('lista cada tripulante com "id · tipo" e mantém a ficha fechada', () => {
+    const idents = [...document.querySelectorAll('#crew .ident')].map((node) => node.textContent);
+    expect(idents).toEqual(['bot-telegram · systemd', 'backup-sd · cron']);
+    expect(document.querySelectorAll('#crew .more:not([hidden])')).toHaveLength(0);
+  });
+
+  it('abre uma ficha por vez ao clicar no crachá', () => {
+    const [first, second] = document.querySelectorAll('#crew .badge-row > button');
+    first.click();
+    second.click();
+    expect(first.getAttribute('aria-expanded')).toBe('false');
+    expect(second.getAttribute('aria-expanded')).toBe('true');
+    expect(document.querySelectorAll('#crew .more:not([hidden])')).toHaveLength(1);
+    second.click();
+    expect(document.querySelectorAll('#crew .more:not([hidden])')).toHaveLength(0);
+  });
+
+  it('mantém a ficha aberta quando o painel atualiza', () => {
+    document.querySelectorAll('#crew .badge-row > button')[1].click();
+    const status = sampleStatus();
+    status.agentes[1].ultima_atividade = '2026-09-27T11:00:00Z';
+    render({ status });
+    const open = document.querySelector('#crew .badge-row > button[aria-expanded="true"]');
+    expect(open.closest('li').dataset.agent).toBe('backup-sd');
+  });
+
   it('aplica as cores do tema via CSSOM, não via atributo style no HTML', () => {
     const card = document.querySelector('#crew .crew');
     expect(card.getAttribute('data-color')).toBe('#ffb8ff');

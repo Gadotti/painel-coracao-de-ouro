@@ -5,6 +5,11 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); 
 
 ## [Não lançado]
 
+### Alterado
+
+- Tripulação agora é uma lista de crachás (uma linha por agente, com `id · tipo`); clicar abre a ficha
+  completa, uma por vez, e ela continua aberta nas atualizações de 15 s.
+
 ## [0.1.0] - 2026-09-27
 
 ### Adicionado

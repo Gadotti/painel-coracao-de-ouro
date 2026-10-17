@@ -61,10 +61,53 @@
 }
 
 /* Tripulação: --c vem do data-color de cada agente */
-.crew-list {
+.badges {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 6px;
+}
+.badge-row {
+  background: var(--panel-2);
+  border: 2px solid var(--line);
+  border-left: 6px solid var(--c, var(--pink));
+}
+.badge-row[data-state='parado'] {
+  border-left-color: var(--dim);
+}
+.badge-row > button {
+  display: grid;
+  grid-template-columns: 36px minmax(120px, 1fr) minmax(0, 2fr) auto auto;
   gap: 12px;
+  align-items: center;
+  justify-items: start;
+  width: 100%;
+  padding: 6px 10px;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.badge-row .nm {
+  font: 700 14px/1.4 var(--px);
+  color: var(--c, var(--pink));
+}
+.badge-row .ident,
+.badge-row .when {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--muted);
+}
+.badge-row .more {
+  padding: 0 12px 10px;
+}
+.badge-row .more[hidden] {
+  display: none;
 }
 .crew {
   display: grid;
@@ -330,8 +373,14 @@ table.forms {
   .ship .acts {
     justify-content: flex-start;
   }
-  .links,
-  .crew-list {
+  .links {
     grid-template-columns: 1fr;
+  }
+  .badge-row > button {
+    grid-template-columns: 36px 1fr auto;
+  }
+  .badge-row .ident,
+  .badge-row .when {
+    display: none;
   }
 }

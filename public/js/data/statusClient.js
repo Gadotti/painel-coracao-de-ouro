@@ -19,7 +19,7 @@ export const EMPTY_THEME = Object.freeze({ agentes: {}, programas: {}, crons: {}
  * falha de rede = "sem conexão" (o servidor do painel não respondeu).
  * @param {{ fetchFn: FetchFunction, statusUrl: string, themeUrl: string }} options
  * @returns {{ fetchSnapshot: () => Promise<StatusFetchResult>, fetchTheme: () => Promise<PanelTheme> }}
- * @example const client = createStatusClient({ fetchFn: fetch, statusUrl: '/api/status', themeUrl: '/api/theme' })
+ * @example const client = createStatusClient({ fetchFn: fetch, statusUrl: 'api/status', themeUrl: 'api/theme' })
  */
 export function createStatusClient({ fetchFn, statusUrl, themeUrl }) {
   const request = (/** @type {string} */ url) =>

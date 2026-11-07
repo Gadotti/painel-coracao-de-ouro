@@ -10,6 +10,11 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); 
 - Tripulação agora é uma lista de crachás (uma linha por agente, com `id · tipo`); clicar abre a ficha
   completa, uma por vez, e ela continua aberta nas atualizações de 15 s.
 
+### Corrigido
+
+- O front chama a API por caminho relativo (`api/status`, `api/theme`), então o painel funciona
+  atrás de um proxy reverso num subcaminho (ex.: `/painel/`) em vez de ficar em "sem sinal".
+
 ## [0.1.0] - 2026-09-27
 
 ### Adicionado

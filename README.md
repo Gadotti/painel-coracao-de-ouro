@@ -85,7 +85,9 @@ npm run hash-password          # pede a senha sem eco e imprime PANEL_PASSWORD_H
 Coloque `PANEL_USER` e o hash gerado no ambiente do container. A senha é guardada como hash
 **scrypt** (N=2¹⁵), comparada em tempo constante, e cada IP fica limitado a 30 tentativas falhas a
 cada 15 minutos. `/healthz` continua público para o `HEALTHCHECK`. Para expor o painel fora de casa,
-use um proxy reverso com HTTPS na frente.
+use um proxy reverso com HTTPS na frente. O painel pode ficar na raiz de um nome próprio ou num
+subcaminho (ex.: `/painel/`); no subcaminho, o proxy precisa remover o prefixo antes de repassar
+(no Nginx, `location /painel/ { proxy_pass http://127.0.0.1:4242/; }`, com a barra final).
 
 ### Tema próprio (nomes dos seus agentes)
 

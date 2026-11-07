@@ -1,4 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
+import { PANEL_CONFIG } from '../../../public/js/config.js';
 import { DEMO_SCENARIOS, createDemoSimulator, parseScenario } from '../../../public/js/data/demoStatus.js';
 import { EMPTY_THEME, createStatusClient, nextConnection } from '../../../public/js/data/statusClient.js';
 import { validateStatus } from '../../../src/status/statusSchema.js';
@@ -76,6 +77,14 @@ describe('createStatusClient', () => {
     expect(await client.fetchTheme()).toEqual(theme);
     expect(await client.fetchTheme()).toBe(EMPTY_THEME);
     expect(await client.fetchTheme()).toBe(EMPTY_THEME);
+  });
+});
+
+describe('PANEL_CONFIG', () => {
+  it('usa URLs da API relativas à página, para funcionar atrás de proxy em subcaminho', () => {
+    const page = 'http://proxy.example/painel/';
+    expect(new URL(PANEL_CONFIG.statusUrl, page).pathname).toBe('/painel/api/status');
+    expect(new URL(PANEL_CONFIG.themeUrl, page).pathname).toBe('/painel/api/theme');
   });
 });
 
